@@ -3,6 +3,7 @@ import random
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy.stats import ttest_ind
 
 ################################ Base de Dados ################################
 # Referência Bibliográfica:

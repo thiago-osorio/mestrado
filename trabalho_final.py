@@ -1,6 +1,8 @@
 import time
 import random
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 ################################ Base de Dados ################################
 # Referência Bibliográfica:
@@ -55,7 +57,7 @@ class Node:
         return False
 
 # Inserção de dados na Árvore Binária
-execs = []
+insert_ab = []
 for _ in range(100):
     ini = time.time()
 
@@ -65,13 +67,13 @@ for _ in range(100):
 
     end = time.time()
     time_diff = end-ini
-    execs.append(time_diff)
-media = round(np.mean(execs), 4)
-desv_pad = round(np.std(execs), 4)
+    insert_ab.append(time_diff)
+media = round(np.mean(insert_ab), 4)
+desv_pad = round(np.std(insert_ab), 4)
 print(f'Tempo médio de inserção dos {len(dados)} números na Árvore Binária: {media} +/- {desv_pad} segundos')
 
 # Busca na Árvore Binária
-execs = []
+search_ab = []
 
 ab = Node(dados[0])
 for numero in dados[1:]:
@@ -84,9 +86,9 @@ for _ in range(100):
 
     end = time.time()
     time_diff = end-ini
-    execs.append(time_diff)
-media = round(np.mean(execs), 4)
-desv_pad = round(np.std(execs), 4)
+    search_ab.append(time_diff)
+media = round(np.mean(search_ab), 4)
+desv_pad = round(np.std(search_ab), 4)
 print(f'Tempo médio de busca na Árvore Binária: {media} +/- {desv_pad} segundos')
 
 ######################## Tabela Hash com Encadeamento ########################
@@ -111,7 +113,7 @@ class HashTable:
         return number in self.table[hash_index]
 
 # Inserção de dados na Tabela Hash
-execs = []
+insert_th = []
 for _ in range(100):
     ini = time.time()
 
@@ -121,14 +123,13 @@ for _ in range(100):
     
     end = time.time()
     time_diff = end-ini
-    execs.append(time_diff)
-media = round(np.mean(execs), 4)
-desv_pad = round(np.std(execs), 4)
+    insert_th.append(time_diff)
+media = round(np.mean(insert_th), 4)
+desv_pad = round(np.std(insert_th), 4)
 print(f'Tempo médio de inserção dos {len(dados)} números na Tabela Hash: {media} +/- {desv_pad} segundos')
 
-
 # Busca na Tabela Hash
-execs = []
+search_th = []
 
 hash_table = HashTable(10000)
 for numero in dados:
@@ -141,7 +142,28 @@ for _ in range(100):
     
     end = time.time()
     time_diff = end-ini
-    execs.append(time_diff)
-media = round(np.mean(execs), 4)
-desv_pad = round(np.std(execs), 4)
+    search_th.append(time_diff)
+media = round(np.mean(search_th), 4)
+desv_pad = round(np.std(search_th), 4)
 print(f'Tempo médio de busca na Tabela Hash: {media} +/- {desv_pad} segundos')
+
+############################ Plotagem de Gráficos ############################
+#   - Claude 3.5 Sonnet
+
+# Inserção
+plt.figure(figsize=(10, 6))
+
+ax = sns.boxplot(data=[insert_ab, insert_th])
+ax.set_xticklabels(['Árvore Binária', 'Tabela Hash'])
+
+plt.ylabel('Tempo (s)')
+plt.show()
+
+# Busca
+plt.figure(figsize=(10, 6))
+
+ax = sns.boxplot(data=[search_ab, search_th])
+ax.set_xticklabels(['Árvore Binária', 'Tabela Hash'])
+
+plt.ylabel('Tempo (s)')
+plt.show()

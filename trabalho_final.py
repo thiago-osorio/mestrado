@@ -148,6 +148,7 @@ desv_pad = round(np.std(search_th), 4)
 print(f'Tempo médio de busca na Tabela Hash: {media} +/- {desv_pad} segundos')
 
 ############################ Plotagem de Gráficos ############################
+# Referência Bibliográfica:
 #   - Claude 3.5 Sonnet
 
 # Inserção

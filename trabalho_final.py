@@ -68,9 +68,9 @@ for _ in range(100):
     end = time.time()
     time_diff = end-ini
     insert_ab.append(time_diff)
-media = round(np.mean(insert_ab), 4)
-desv_pad = round(np.std(insert_ab), 4)
-print(f'Tempo médio de inserção dos {len(dados)} números na Árvore Binária: {media} +/- {desv_pad} segundos')
+media = round(np.mean(insert_ab), 6)
+desv_pad = round(np.std(insert_ab), 6)
+print(f'Tempo médio de inserção dos {len(dados)} números na Árvore Binária: {media:.6f} +/- {desv_pad:.6f} segundos')
 
 # Busca na Árvore Binária
 search_ab = []
@@ -87,9 +87,9 @@ for _ in range(100):
     end = time.time()
     time_diff = end-ini
     search_ab.append(time_diff)
-media = round(np.mean(search_ab), 4)
-desv_pad = round(np.std(search_ab), 4)
-print(f'Tempo médio de busca na Árvore Binária: {media} +/- {desv_pad} segundos')
+media = round(np.mean(search_ab), 6)
+desv_pad = round(np.std(search_ab), 6)
+print(f'Tempo médio de busca na Árvore Binária: {media:.6f} +/- {desv_pad:.6f} segundos')
 
 ######################## Tabela Hash com Encadeamento ########################
 # Referência Bibliográfica:
@@ -124,9 +124,9 @@ for _ in range(100):
     end = time.time()
     time_diff = end-ini
     insert_th.append(time_diff)
-media = round(np.mean(insert_th), 4)
-desv_pad = round(np.std(insert_th), 4)
-print(f'Tempo médio de inserção dos {len(dados)} números na Tabela Hash: {media} +/- {desv_pad} segundos')
+media = round(np.mean(insert_th), 6)
+desv_pad = round(np.std(insert_th), 6)
+print(f'Tempo médio de inserção dos {len(dados)} números na Tabela Hash: {media:.6f} +/- {desv_pad:.6f} segundos')
 
 # Busca na Tabela Hash
 search_th = []
@@ -143,9 +143,9 @@ for _ in range(100):
     end = time.time()
     time_diff = end-ini
     search_th.append(time_diff)
-media = round(np.mean(search_th), 4)
-desv_pad = round(np.std(search_th), 4)
-print(f'Tempo médio de busca na Tabela Hash: {media} +/- {desv_pad} segundos')
+media = round(np.mean(search_th), 6)
+desv_pad = round(np.std(search_th), 6)
+print(f'Tempo médio de busca na Tabela Hash: {media:.6f} +/- {desv_pad:.6f} segundos')
 
 ############################ Plotagem de Gráficos ############################
 # Referência Bibliográfica:
@@ -168,3 +168,21 @@ ax.set_xticklabels(['Árvore Binária', 'Tabela Hash'])
 
 plt.ylabel('Tempo (s)')
 plt.show()
+
+############################# Teste de Hipóteses #############################
+
+# Inserção
+stat, p = ttest_ind(insert_ab, insert_th)
+print('stat=%.3f, p=%.3f' % (stat, p))
+if p > 0.05:
+	print('As médias NÃO são diferentes com significância estatística')
+else:
+	print('As médias são diferentes com significância estatística')
+
+# Busca
+stat, p = ttest_ind(search_ab, search_th)
+print('stat=%.3f, p=%.3f' % (stat, p))
+if p > 0.05:
+	print('As médias NÃO são diferentes com significância estatística')
+else:
+	print('As médias são diferentes com significância estatística')
